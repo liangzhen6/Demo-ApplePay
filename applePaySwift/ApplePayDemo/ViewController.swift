@@ -38,7 +38,9 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
      8.完成这一切然后 就开始写代码了
     
      */
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    @IBAction func PayAction(_ sender: Any) {
+        
         //点击支付
         //1.检查是否支持apple pay
         if #available(iOS 10.0, *) {
@@ -59,7 +61,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 //默认为shipping
                 payRequest.shippingType = .shipping
                 
-                //购物地址设置 
+                //购物地址设置
                 payRequest.requiredShippingAddressFields = .all
                 //需要的配送信息和账单信息
                 payRequest.requiredBillingAddressFields = .all
@@ -67,7 +69,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 
                 var shipping_methods = Array<PKShippingMethod>.init()
                 
-                let moneys = ["15:00", "20:00", "10:00"]
+                let moneys = ["0.1", "0.1", "0.1"]
                 let titles = ["顺丰", "EMS", "四通一达"]
                 let descrps = ["隔日达", "五日达", "三日达"]
                 
@@ -85,7 +87,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 
                 var summaryItems = Array<PKPaymentSummaryItem>.init()
                 //产品 item
-                let item_product = PKPaymentSummaryItem.init(label: "iPhone X", amount: NSDecimalNumber.init(string: "8000.0"))
+                let item_product = PKPaymentSummaryItem.init(label: "iPhone X", amount: NSDecimalNumber.init(string: "0.1"))
                 summaryItems.append(item_product)
                 //邮递 item
                 if !shipping_methods.isEmpty {
@@ -118,8 +120,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         } else {
             // Fallback on earlier versions
         }
-        
     }
+    
     //计算总价
     func calculateMoney() -> NSDecimalNumber {
         var total = NSDecimalNumber.zero
